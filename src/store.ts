@@ -7,18 +7,32 @@ interface Store {
     addToOrder: (product: Product) => void
 }
 
-export const useStore = create<Store>((set) => ({
+export const useStore = create<Store>((set, get) => ({
     order: [],
     addToOrder: product => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { categoryId, image, ...data } = product;
+        let order : OrderItem[] = []
 
-        set((state) => ({
-            order: [...state.order, {
+        /** Handle Duplicates */
+        const existingItem = get().order.find(item => item.id === product.id);
+
+        if (existingItem) {
+            order = get().order.map( item => item.id === product.id ? {
+                ...item,
+                quantity: item.quantity + 1,
+                subtotal: item.price * (item.quantity + 1)
+            } : item );
+        } else {
+            order = [...get().order, {
                 ...data,
                 quantity: 1,
                 subtotal: 1 * product.price     
-            }]
+            }];
+        }
+
+        set(() => ({
+            order
         }))
     }
 }));
