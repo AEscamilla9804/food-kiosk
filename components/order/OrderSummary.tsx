@@ -2,9 +2,12 @@
 
 import { useStore } from "@/src/store"
 import ProductDetails from "./ProductDetails";
+import { useMemo } from "react";
+import { formatCurrency } from "@/src/utils";
 
 export default function OrderSummary() {
   const order = useStore((state) => state.order);
+  const orderTotal = useMemo(() => order.reduce((total, item) => total + item.subtotal, 0), [order]);
 
   return (
     <aside className="md:h-screen md:overflow-y-auto md:w-64 lg:w-96 p-5">
@@ -20,6 +23,13 @@ export default function OrderSummary() {
                 item={item}
               />
             ))}
+
+          <p className="text-2xl mt-10 text-center">
+            Total: {''}
+            <span className="font-bold">
+              { formatCurrency(orderTotal) }
+            </span>
+          </p>
           </div>
         )}
     </aside>
