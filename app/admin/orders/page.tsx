@@ -33,7 +33,7 @@ export default async function OrdersPage() {
             ))}
           </div>
         ) : (
-          <p className="h-full flex justify-center items-center text-3xl text-center font-bold">
+          <p className="flex items-center justify-center h-[75%] text-3xl text-center font-bold">
             There are no pending orders
           </p>
         )}
