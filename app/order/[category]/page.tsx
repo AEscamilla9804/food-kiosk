@@ -1,4 +1,5 @@
 import ProductCard from '@/components/products/ProductCard';
+import Heading from '@/components/ui/Heading';
 import { Category } from '@/src/generated/prisma/client';
 import prisma from '@/src/lib/prisma';
 
@@ -17,9 +18,9 @@ export default async function page({ params } : { params: { category: Category['
 
     return (
         <>
-            <h1 className='text-3xl my-10 font-bold'>
+            <Heading>
                 Personalize your order
-            </h1>
+            </Heading>
 
             <div className='grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-4 items-start'>
                 { products.map(product => (

@@ -1,11 +1,12 @@
 import React from 'react'
 import Logo from '../ui/Logo'
+import AdminRoute from './AdminRoute'
 
-// const adminNavigation = [
-//     { url: '/admin/orders', text: 'Ordenes', blank: false },
-//     { url: '/admin/products', text: 'Productos', blank: false },
-//     { url: '/order/cafe', text: 'Ver Quiosco', blank: true },
-// ]
+const adminNavigation = [
+    { url: '/admin/orders', text: 'Orders', blank: false },
+    { url: '/admin/products', text: 'Products', blank: false },
+    { url: '/order/coffee', text: 'Back to Kiosk', blank: true },
+]
 
 export default function AdminSidebar() {
     return (
@@ -15,7 +16,12 @@ export default function AdminSidebar() {
                 <p className="mt-10 uppercase font-bold text-sm text-gray-600 text-center">Navigation</p>
 
                 <nav className="flex flex-col">
-                    
+                    { adminNavigation.map(link => (
+                        <AdminRoute 
+                            key={link.url}
+                            link={link}
+                        />
+                    ))}
                 </nav>
             </div>
         </>
