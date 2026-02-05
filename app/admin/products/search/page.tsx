@@ -3,6 +3,7 @@ import ProductsTable from "@/components/products/ProductsTable";
 import SearchResultsPagination from "@/components/products/SearchResultsPagination";
 import Heading from "@/components/ui/Heading";
 import prisma from "@/src/lib/prisma";
+import { redirect } from "next/navigation";
 
 async function searchProductsCount(searchTerm: string) {
     const productCount = await prisma.product.findMany({
@@ -43,10 +44,14 @@ export default async function page({ searchParams } : { searchParams : { search:
     const currentPage = Number(searchParams.page) || 1;
     const pageSize = 10;
 
+    if (currentPage < 0 ) redirect(`/admin/products/search?search=${search}`);
+
     const productsData = searchProducts(search, currentPage, pageSize);
     const totalProductsData = searchProductsCount(search);
     const [ products, totalProducts ] = await Promise.all([productsData, totalProductsData]);
     const totalPages = Math.ceil(totalProducts / pageSize);
+
+    if (currentPage > totalPages) redirect(`/admin/products/search?search=${search}`);
 
     return (
         <>
@@ -57,20 +62,22 @@ export default async function page({ searchParams } : { searchParams : { search:
             </div>
 
             { products.length ? (
-                <ProductsTable 
-                    products={products}
-                />
+                <>
+                    <ProductsTable 
+                        products={products}
+                    />
+
+                    <SearchResultsPagination 
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        searchTerm={search}
+                    />
+                </>
             ) : (
                 <p className="mt-28 lg:mt-64 text-center text-3xl font-bold">
                     The search did not return any results.
                 </p>
             )}
-
-            <SearchResultsPagination 
-                currentPage={currentPage}
-                totalPages={totalPages}
-                searchTerm={search}
-            />
         </>
     )
 }
