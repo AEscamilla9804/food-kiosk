@@ -6,6 +6,8 @@ type ProductsPaginationProps = {
 }
 
 export default function ProductsPagination({ currentPage, totalPages } : ProductsPaginationProps) {
+    const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+
     return (
         <nav className='flex justify-center p-10'>
             { currentPage > 1 && 
@@ -16,6 +18,19 @@ export default function ProductsPagination({ currentPage, totalPages } : Product
                     &laquo;
                 </Link>
             }
+
+            { pages.map(page => (
+                <Link
+                    key={page}
+                    href={`/admin/products?page=${page}`}
+                    className={`
+                        bg-white px-4 py-2 text-sm text-gray-900 ring-1 ring-insert ring-gray-300 focus:z-20 focus:outline-offset-0
+                        ${ page === currentPage && 'bg-indigo-200 font-black text-indigo-700' }
+                    `}
+                >
+                    { page }
+                </Link>
+            ))}
             
             { currentPage < totalPages && 
                 <Link
