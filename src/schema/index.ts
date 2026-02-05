@@ -17,3 +17,9 @@ export const OrderSchema = z.object({
 export const OrderIdSchema = z.object({
     orderId: z.coerce.number()
 });
+
+export const SearchSchema = z.object({
+    search: z.string()
+            .trim()
+            .min(1, { message: 'Search parameters cannot be empty' })
+});
