@@ -1,8 +1,29 @@
 "use client"
 
+import { NewProductSchema } from "@/src/schema"
+import { toast } from "react-toastify";
+
 export default function AddProductForm({ children } : { children: React.ReactNode }) {
     const handleSubmit = async (formData: FormData) => {
-        console.log('Desde handleSubmit')
+        const data = {
+            name: formData.get('name')!,
+            price: formData.get('price')!,
+            categoryId: formData.get('categoryId')!
+        }
+
+        /** Client Side Validation */
+        const result = NewProductSchema.safeParse(data);
+        console.log(result)
+        
+        if (!result.success) {
+            result.error.issues.forEach(issue => {
+                toast.error(issue.message);
+            });
+
+            return
+        }
+
+        console.log('Vas bien')
     }
 
     return (

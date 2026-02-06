@@ -36,6 +36,8 @@ export default async function ProductForm() {
 
                 <input
                     id="price"
+                    type="number"
+                    step={0.01}
                     name="price"
                     className="block w-full p-3 bg-slate-100 border border-gray-200"
                     placeholder="Product Price"
