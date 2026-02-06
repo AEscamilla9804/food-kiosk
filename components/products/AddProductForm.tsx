@@ -1,6 +1,8 @@
 "use client"
 
+import { createProduct } from "@/actions/create-product-action";
 import { NewProductSchema } from "@/src/schema"
+import { redirect } from "next/navigation";
 import { toast } from "react-toastify";
 
 export default function AddProductForm({ children } : { children: React.ReactNode }) {
@@ -8,7 +10,8 @@ export default function AddProductForm({ children } : { children: React.ReactNod
         const data = {
             name: formData.get('name')!,
             price: formData.get('price')!,
-            categoryId: formData.get('categoryId')!
+            categoryId: formData.get('categoryId')!,
+            image: formData.get('image')!
         }
 
         /** Client Side Validation */
@@ -23,7 +26,19 @@ export default function AddProductForm({ children } : { children: React.ReactNod
             return
         }
 
-        console.log('Vas bien')
+        const response = await createProduct(result.data);
+
+        // Server Side Validation
+        if (response?.errors) {
+            response.errors.forEach(error => {
+                toast.error(error.message);
+            });
+
+            return
+        }
+
+        toast.success('Product Created Successfully');
+        redirect('/admin/products');
     }
 
     return (

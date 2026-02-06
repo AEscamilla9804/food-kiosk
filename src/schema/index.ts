@@ -31,5 +31,7 @@ export const NewProductSchema = z.object({
     price: z.coerce.number()
         .min(1, { message: 'Invalid price'}),
     categoryId: z.coerce.number()
-        .min(1, { message: 'Product category is required'})
+        .min(1, { message: 'Product category is required'}),
+    image: z.string()
+        .min(1, { message: 'Product image is required'})
 });
