@@ -64,7 +64,6 @@ export default async function ProductForm() {
                             { category.name }
                         </option>
                     ))}
-        
                 </select>
             </div>
         </>
