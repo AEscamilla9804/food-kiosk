@@ -1,3 +1,4 @@
+import AutoRefresh from '@/components/order/AutoRefresh';
 import ProductCard from '@/components/products/ProductCard';
 import Heading from '@/components/ui/Heading';
 import { Category } from '@/src/generated/prisma/client';
@@ -18,11 +19,10 @@ export default async function page({ params } : { params: { category: Category['
 
     return (
         <>
-            <Heading>
-                Personalize your order
-            </Heading>
+            <AutoRefresh />
+            <Heading>Personalize your order</Heading>
 
-            <div className='grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-4 items-start'>
+            <div className='grid grid-cols-1 px-20 md:px-0 lg:grid-cols-2 xl:grid-cols-3 gap-4 items-start'>
                 { products.map(product => (
                     <ProductCard
                         key={ product.id }

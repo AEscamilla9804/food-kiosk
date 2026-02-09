@@ -1,10 +1,10 @@
 "use server"
 
-import prisma from "@/src/lib/prisma";
-import { NewProductSchema } from "@/src/schema"
+import prisma from "@/src/lib/prisma"
+import { NewProductSchema } from "@/src/schema";
 import { revalidatePath } from "next/cache";
 
-export async function createProduct(data: unknown) {
+export async function updateProduct(data: unknown, id: number) {
     // Server Side Validation
     const result = NewProductSchema.safeParse(data);
 
@@ -14,9 +14,12 @@ export async function createProduct(data: unknown) {
         }
     }
 
-    await prisma.product.create({
+    await prisma.product.update({
+        where: {
+            id
+        },
         data: result.data
     });
 
-    revalidatePath('/admin/orders');
+    revalidatePath('/admin/products');
 }

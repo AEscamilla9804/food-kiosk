@@ -1,11 +1,15 @@
 "use client"
 
-import { createProduct } from "@/actions/create-product-action";
+import { useParams } from "next/navigation"
 import { NewProductSchema } from "@/src/schema"
-import { redirect } from "next/navigation";
-import { toast } from "react-toastify";
+import { redirect } from "next/navigation"
+import { toast } from "react-toastify"
+import { updateProduct } from "@/actions/update-product-action"
 
 export default function EditProductForm({ children } : { children: React.ReactNode }) {
+    const params = useParams();
+    const id = Number(params.id!);
+
     const handleSubmit = async (formData: FormData) => {
         const data = {
             name: formData.get('name')!,
@@ -25,7 +29,7 @@ export default function EditProductForm({ children } : { children: React.ReactNo
             return
         }
 
-        const response = await createProduct(result.data);
+        const response = await updateProduct(result.data, id);
 
         // Server Side Validation
         if (response?.errors) {
@@ -36,7 +40,7 @@ export default function EditProductForm({ children } : { children: React.ReactNo
             return
         }
 
-        toast.success('Product Created Successfully');
+        toast.success('Changes Saved Successfully');
         redirect('/admin/products');
     }
 
