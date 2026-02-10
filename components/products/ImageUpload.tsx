@@ -57,13 +57,15 @@ export default function ImageUpload({ image } : { image: string | undefined }) {
                         <div className="space-y-2">
                             <label className="text-slate-800 font-semibold">Current Image:</label>
 
-                            <div className="relative w-64 h-64">
-                                <Image 
-                                    fill
-                                    src={ getImagePath(image) }
-                                    alt="Product Image"
-                                    style={{ objectFit: 'contain' }}
-                                />
+                            <div className="flex justify-center md:justify-start py-3 md:py-0">
+                                <div className="relative w-64 h-64">
+                                    <Image 
+                                        fill
+                                        src={ getImagePath(image) }
+                                        alt="Product Image"
+                                        style={{ objectFit: 'contain' }}
+                                    />
+                                </div>
                             </div>
                         </div>
                     )}

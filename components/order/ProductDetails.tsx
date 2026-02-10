@@ -19,7 +19,7 @@ export default function ProductDetails({ item } : ProductDetailsProps) {
     const disableDecreaseButton = useMemo(() => item.quantity === MIN_ITEMS, [item]);
 
     return (
-        <div className="shadow space-y-1 p-4 bg-white  border-t border-gray-200 ">
+        <div className="shadow space-y-1 p-4 bg-white border-t border-gray-200 ">
             <div className="flex flex-col gap-3">
                 <div className="flex justify-between items-start">
                     <p className="text-xl font-bold">{ item.name } </p>
