@@ -1,7 +1,7 @@
 import { ProductWithCategory } from '@/src/types'
 import { formatCurrency } from '@/src/utils'
 import Link from 'next/link'
-import React from 'react'
+import ChangeAvailabilityButton from './ChangeAvailabilityButton'
 
 type ProductsTableProps = {
     products: ProductWithCategory[]
@@ -60,9 +60,9 @@ export default function ProductsTable({ products } : ProductsTableProps) {
                                                     Edit <span className='sr-only'>, { product.name }</span>
                                                 </Link>
 
-                                                <button className='text-red-500 hover:text-red-700'>
-                                                    Delete
-                                                </button>
+                                                <ChangeAvailabilityButton 
+                                                    product={product}
+                                                />
                                             </div>
                                             
                                         </td>

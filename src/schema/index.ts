@@ -35,3 +35,7 @@ export const NewProductSchema = z.object({
     image: z.string()
         .min(1, { message: 'Product image is required'})
 });
+
+export const DeleteProductSchema = z.object({
+    id: z.number().min(1, { message: 'Invalid ID' })
+});

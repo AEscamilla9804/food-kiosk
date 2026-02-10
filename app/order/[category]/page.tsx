@@ -11,6 +11,7 @@ export default async function page({ params } : { params: { category: Category['
     /** Obtain products by category */
     const products = await prisma.product.findMany({
         where: {
+            active: true,
             category: {
                 slug: category
             }
