@@ -4,9 +4,9 @@ import { revalidatePath } from "next/cache"
 import prisma from "@/src/lib/prisma"
 import { OrderIdSchema } from "@/src/schema";
 
-export async function completeOrder(formData: FormData) {
+export async function completeOrder(orderId: number) {
     const data = {
-        orderId: formData.get('order_id')!
+        orderId
     }
 
     const result = OrderIdSchema.safeParse(data);
@@ -15,7 +15,7 @@ export async function completeOrder(formData: FormData) {
         try {
             await prisma.order.update({
                 where: {
-                    id: result.data.orderId
+                    id: orderId
                 },
                 data: {
                     status: true,
