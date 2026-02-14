@@ -4,6 +4,7 @@ import useSWR  from 'swr'
 import OrderCard from '@/components/order/OrderCard'
 import Heading from '@/components/ui/Heading'
 import { OrderWithProducts } from '@/src/types';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 
 export default function OrdersPage() {
   /** Fetch Pending Orders (SWR) */
@@ -14,7 +15,7 @@ export default function OrdersPage() {
     revalidateOnFocus: false
   });
 
-  if (isLoading) return <p>Loading...</p>
+  if (isLoading) return <LoadingSpinner />
   if (data) return (
     <>
         <Heading>Manage your Orders</Heading>

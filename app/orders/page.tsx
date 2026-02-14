@@ -1,6 +1,7 @@
 "use client"
 
 import LatestOrderItem from "@/components/order/LatestOrderItem";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import Logo from "@/components/ui/Logo";
 import { OrderWithProducts } from "@/src/types";
 import useSWR from "swr";
@@ -14,7 +15,7 @@ export default function OrdersPage() {
         revalidateOnFocus: false
     });
 
-    if (isLoading) return <p>Loading...</p>
+    if (isLoading) return <LoadingSpinner />
     if (data) return (
         <>
             <h1 className="text-center mt-12 text-6xl font-black">Orders Ready</h1>
