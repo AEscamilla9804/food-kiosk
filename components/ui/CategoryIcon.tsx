@@ -14,29 +14,27 @@ export default function CategoryIcon({ category } : CategoryIconProps) {
     const params = useParams<{ category: Category['slug'] }>();
 
     return (
-        <div 
+        <Link
+            href={`/order/${category.slug}`}
             className={`
-                flex items-center gap-5 w-full border-t border-gray-200 p-3 last-of-type:border-b
+                flex items-center gap-5 w-full border-t border-gray-200 p-3 last:border-b transition
                 ${ category.slug === params.category
-                    ? 'bg-amber-400 hover:bg-amber-400'
-                    : 'hover:bg-amber-100'
+                    ? "bg-amber-400 hover:bg-amber-400"
+                    : "hover:bg-amber-100"
                 }
             `}
         >
-            <div className='relative size-12'>
-                <Image 
+            <div className="relative size-12">
+                <Image
                     src={`/icon_${category.slug}.svg`}
-                    alt={`Catgory image for: ${category.name}`}
+                    alt={`Category image for: ${category.name}`}
                     fill
                 />
             </div>
 
-            <Link 
-                className='text-xl font-bold'
-                href={`/order/${category.slug}`}
-            >
-                { category.name }
-            </Link>
-        </div>
+            <span className="text-xl font-bold">
+                {category.name}
+            </span>
+        </Link>
     )
 }
