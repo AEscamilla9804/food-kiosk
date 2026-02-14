@@ -37,6 +37,7 @@ next-env.d.ts
 
 # environment
 .env
+.env.*
 
 # postgres
 postgres_data
